@@ -23,7 +23,7 @@ class VetSerializer(serializers.HyperlinkedModelSerializer):
 class PetSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Pet
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'age', 'type', 'breed', 'gender', 'insurance', 'vaccineStatus')
 
 class VaccinationSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

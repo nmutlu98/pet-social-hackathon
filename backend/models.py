@@ -12,6 +12,9 @@ class User(models.Model):
 class Pet(models.Model):
     owner = models.ForeignKey(User, to_field = "id", on_delete=models.CASCADE, default=User.objects.first().pk)
     name = models.CharField(max_length=100)
+    gender = models.CharField(max_length=100, blank=True, null=True)
+    insurance = models.CharField(max_length=100, blank=True, null=True)
+    vaccineStatus = models.CharField(max_length=100, blank=True, null=True)
     type = models.CharField(max_length=100)
     breed = models.CharField(max_length=100)
     age = models.IntegerField(default = 0)
@@ -50,7 +53,7 @@ class Vaccination(models.Model):
         return self.name + str(self.date)
 
 class VaccinationCard(models.Model):
-    patient = models.ForeignKey(Pet, to_field="id", on_delete=models.CASCADE, default=Pet.objects.first().pk)
+    #patient = models.ForeignKey(Pet, to_field="id", on_delete=models.CASCADE, default=Pet.objects.first().pk)
     vaccination = models.ForeignKey(Vaccination, on_delete=models.CASCADE, default=Vaccination.objects.first().pk)
 
     def __str__(self):
