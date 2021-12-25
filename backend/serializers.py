@@ -54,9 +54,9 @@ class CaseSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'title')
 
 class AskidaSigortaSerializer(serializers.HyperlinkedModelSerializer):
-    owner_name = serializers.CharField(source='owner.name')
-    vet_name = serializers.CharField(source='vet.name')
     case_name = serializers.CharField(source='case.title')
+    vet_name = serializers.CharField(source='case.vet.name')
+    files = serializers.CharField(source='case.bill')
     class Meta:
         model = AskidaSigorta
-        fields = ('id', 'case', 'case_name', 'vet_name', 'amount')
+        fields = ('id','amount', 'isUsed', 'case_name', 'vet_name', 'files')

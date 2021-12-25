@@ -80,6 +80,6 @@ class AskidaSigorta(models.Model):
     isUsed = models.CharField(max_length = 100)
     usedForVet = models.ForeignKey(Vet, to_field = "id", on_delete=models.SET_NULL, default=Vet.objects.first().pk, blank=True, null = True)   
     case = models.ForeignKey(Case, to_field = "id", on_delete=models.SET_NULL, blank = True, null = True)
-
+    
     def __str__(self):
         return str(self.amount)
