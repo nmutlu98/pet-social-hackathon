@@ -16,6 +16,7 @@ class Pet(models.Model):
     insurance = models.CharField(max_length=100, blank=True, null=True)
     vaccineStatus = models.CharField(max_length=100, blank=True, null=True)
     type = models.CharField(max_length=100)
+    chronicalIllnesses = models.CharField(max_length=100, default="diabet")
     breed = models.CharField(max_length=100)
     age = models.IntegerField(default = 0)
 
