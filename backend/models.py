@@ -65,3 +65,20 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+
+class Case(models.Model):
+    bill = models.FileField(upload_to='files', blank = True, null = True)
+    title = models.CharField(max_length=100)
+    vet = models.ForeignKey(Vet, to_field = "id", on_delete = models.SET_NULL, default = Vet.objects.first().pk, blank = True, null = True)
+    
+    def __str__(self):
+        return self.title
+class AskidaSigorta(models.Model):
+    owner = models.ForeignKey(User, to_field = "id", on_delete=models.SET_NULL, default=User.objects.first().pk, blank=True, null = True)
+    amount = models.IntegerField(default=0)
+    isUsed = models.CharField(max_length = 100)
+    usedForVet = models.ForeignKey(Vet, to_field = "id", on_delete=models.SET_NULL, default=Vet.objects.first().pk, blank=True, null = True)   
+    case = models.ForeignKey(Case, to_field = "id", on_delete=models.SET_NULL, blank = True, null = True)
+
+    def __str__(self):
+        return str(self.amount)

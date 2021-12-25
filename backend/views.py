@@ -10,10 +10,14 @@ from .serializers import UserSerializer
 from .serializers import VetSerializer
 from .serializers import ClaimSerializer
 from .serializers import PetSerializer
+from .serializers import CaseSerializer
+from .serializers import AskidaSigortaSerializer
 from .models import User
 from .models import Vet
 from .models import Claim
 from .models import Pet
+from .models import Case
+from .models import AskidaSigorta
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('email')
@@ -75,4 +79,40 @@ class ClaimViewSet(viewsets.ModelViewSet):
         id = request.GET.get("id")
         claims = self.get_queryset().filter(owner = id)
         serializer = self.get_serializer(claims, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class CaseViewSet(viewsets.ModelViewSet):
+    queryset = Case.objects.all().order_by('title')
+    serializer_class = CaseSerializer
+
+    @action(detail=False, methods=["get"])
+    def get_case_by_id(self, request):
+        id = request.GET.get("id")
+        cases = self.get_queryset().filter(id = id)
+        serializer = self.get_serializer(cases, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    @action(detail=False, methods=["get"])
+    def get_cases_of_user(self, request):
+        id = request.GET.get("id")
+        cases = self.get_queryset().filter(owner = id)
+        serializer = self.get_serializer(cases, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class AskidaSigortaViewSet(viewsets.ModelViewSet):
+    queryset = AskidaSigorta.objects.all()
+    serializer_class = AskidaSigortaSerializer
+
+    @action(detail=False, methods=["get"])
+    def get_case_by_id(self, request):
+        id = request.GET.get("id")
+        insurances = self.get_queryset().filter(id = id)
+        serializer = self.get_serializer(insurances, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    @action(detail=False, methods=["get"])
+    def get_askida_sigorta_of_user(self, request):
+        id = request.GET.get("id")
+        insurances = self.get_queryset().filter(owner = id)
+        serializer = self.get_serializer(insurances, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
