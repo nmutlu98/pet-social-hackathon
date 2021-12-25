@@ -41,6 +41,7 @@ class CompanySerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name')
 
 class ClaimSerializer(serializers.HyperlinkedModelSerializer):
+    pet_name = serializers.CharField(source='pet.name')
     class Meta:
         model = Claim
-        fields = ('id', 'name', 'description', 'pet', 'status')
+        fields = ('id', 'pet_name', 'description', 'pet', 'status')
