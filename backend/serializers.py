@@ -7,6 +7,7 @@ from .models import Pet
 from .models import Vaccination
 from .models import VaccinationCard
 from .models import Company
+from .models import Claim
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -38,4 +39,8 @@ class CompanySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Company
         fields = ('id', 'name')
-        
+
+class ClaimSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Claim
+        fields = ('id', 'name', 'description')
