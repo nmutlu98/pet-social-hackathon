@@ -33,6 +33,7 @@ class Claim(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=200)
     owner = models.ForeignKey(User, to_field="id", on_delete=models.CASCADE, default = User.objects.first().pk)
+    pet = models.ForeignKey(Pet, to_field="id", on_delete=models.SET_NULL, blank=True, null=True)
     veterinary = models.ForeignKey(Vet, to_field="id", on_delete=models.SET_NULL, blank = True, null=True)
     pdf = models.FileField(upload_to='files', blank = True, null = True)
     status = models.CharField(max_length=50)
@@ -40,7 +41,7 @@ class Claim(models.Model):
 
     def __str__(self):
         return self.name
-        
+
 class Vaccination(models.Model):
     name = models.CharField(max_length=100)
     date = models.DateField('Date of Vaccination')
