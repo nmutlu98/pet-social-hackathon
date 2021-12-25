@@ -43,4 +43,4 @@ class CompanySerializer(serializers.HyperlinkedModelSerializer):
 class ClaimSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Claim
-        fields = ('id', 'name', 'description')
+        fields = ('id', 'name', 'description', 'pet', 'status')
