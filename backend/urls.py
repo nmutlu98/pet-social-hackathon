@@ -5,7 +5,7 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
-
+router.register(r'vets', views.VetViewSet)
 # path('path/to/my/view/', MySimpleView.as_view())
 
 # Wire up our API using automatic URL routing.

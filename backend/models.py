@@ -1,8 +1,8 @@
 from django.db import models
-from django.db.models.deletion import CASCADE
 
 # Create your models here.
 class User(models.Model):
+    #userType = models.CharField(max_length = 20, null=True)
     email = models.CharField(max_length = 60)
     password = models.CharField(max_length = 12)
 
@@ -10,7 +10,7 @@ class User(models.Model):
         return self.email
 
 class Pet(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, to_field = "id", on_delete=models.CASCADE, default=User.objects.first().pk)
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=100)
     breed = models.CharField(max_length=100)
@@ -21,7 +21,9 @@ class Pet(models.Model):
 
 class Vet(models.Model):
     name = models.CharField(max_length=100)
-    patient = models.CharField(Pet.name)
+    email = models.CharField(max_length=100, default="nmutlu17@ku.edu.tr")
+    password = models.CharField(max_length=100, default="test")
+    #patient = models.ForeignKey(Pet, to_field="id", max_length=100)
 
 
     def __str__(self):
@@ -32,17 +34,17 @@ class Vaccination(models.Model):
     date = models.DateField('Date of Vaccination')
 
     def __str__(self):
-        return self.name + self.date
+        return self.name + str(self.date)
 
 class VaccinationCard(models.Model):
-    patient = models.ForeignKey(Pet, on_delete=CASCADE)
-    vaccination = models.ForeignKey(Vaccination, on_delete=CASCADE)
+    patient = models.ForeignKey(Pet, to_field="id", on_delete=models.CASCADE, default=Pet.objects.first().pk)
+    vaccination = models.ForeignKey(Vaccination, on_delete=models.CASCADE, default=Vaccination.objects.first().pk)
 
     def __str__(self):
         return self.id
 
 class Company(models.Model):
-    user = models.ForeignKey(User, on_delete=CASCADE)
+    user = models.ForeignKey(User, to_field = "id", on_delete=models.CASCADE, default = User.objects.first().pk)
     name = models.CharField(max_length=100)
 
     def __str__(self):
