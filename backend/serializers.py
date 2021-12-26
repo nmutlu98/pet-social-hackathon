@@ -23,7 +23,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class VetSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Vet
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'address', 'phone')
 
 class PetSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

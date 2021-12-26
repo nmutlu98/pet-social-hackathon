@@ -27,6 +27,8 @@ class Vet(models.Model):
     name = models.CharField(max_length=100)
     email = models.CharField(max_length=100, default="nmutlu17@ku.edu.tr")
     password = models.CharField(max_length=100, default="test")
+    address = models.CharField(max_length=100, default="test")
+    phone = models.CharField(max_length=100, default="05398376436")
     #patient = models.ForeignKey(Pet, to_field="id", max_length=100)
 
 
@@ -96,14 +98,14 @@ class AskidaSigorta(models.Model):
     owner = models.ForeignKey(User, to_field = "id", on_delete=models.SET_NULL, default=User.objects.first().pk, blank=True, null = True)
     amount = models.IntegerField(default=0)
     isUsed = models.CharField(max_length = 100)
-    usedForVet = models.ForeignKey(Vet, to_field = "id", on_delete=models.SET_NULL, default=Vet.objects.first().pk, blank=True, null = True)   
+    usedForVet = models.ForeignKey(Vet, to_field = "id", on_delete=models.SET_NULL, default=Vet.objects.first().pk, blank=True, null = True)
     case = models.ForeignKey(Case, to_field = "id", on_delete=models.SET_NULL, blank = True, null = True)
 
     def __str__(self):
         return str(self.amount)
 
 class Comments(models.Model):
-    vet = models.ForeignKey(Vet, on_delete=models.CASCADE, to_field="id")
+    vet = models.ForeignKey(Vet, on_delete=models.CASCADE, to_field="id", default=Vet.objects.first().pk)
     user = models.ForeignKey(User, on_delete=models.CASCADE, to_field="id")
     comment = models.CharField(max_length=256, null=True)
     star =  models.IntegerField(null=True, blank=True)
