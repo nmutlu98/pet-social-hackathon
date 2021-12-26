@@ -14,6 +14,7 @@ from .serializers import CaseSerializer
 from .serializers import AskidaSigortaSerializer
 from .serializers import WalkerSerializer
 from .serializers import HotelSerializer
+from .serializers import CommentSerializer
 
 from .models import User
 from .models import Vet
@@ -23,6 +24,7 @@ from .models import Case
 from .models import AskidaSigorta
 from .models import Hotel
 from .models import Walker
+from .models import Comments
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('email')
@@ -159,4 +161,14 @@ class AskidaSigortaViewSet(viewsets.ModelViewSet):
         id = request.GET.get("id")
         insurances = self.get_queryset().filter(owner = id)
         serializer = self.get_serializer(insurances, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class CommentsViewSet(viewsets.ModelViewSet):
+    queryset = Comments.objects.all().order_by('date')
+    serializer_class = CommentSerializer
+
+    @action(detail=False)
+    def get_comments(self, request):
+        comments = self.get_queryset()
+        serializer = self.get_serializer(comments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

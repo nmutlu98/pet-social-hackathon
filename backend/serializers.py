@@ -12,6 +12,7 @@ from .models import Case
 from .models import AskidaSigorta
 from .models import Hotel
 from .models import Walker
+from .models import Comments
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -76,3 +77,8 @@ class AskidaSigortaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AskidaSigorta
         fields = ('id','amount', 'isUsed', 'case_name', 'vet_name', 'files')
+
+class CommentSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Comments
+        fields = ('vet', 'user', 'comment', 'star', 'date')

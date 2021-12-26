@@ -101,3 +101,13 @@ class AskidaSigorta(models.Model):
 
     def __str__(self):
         return str(self.amount)
+
+class Comments(models.Model):
+    vet = models.ForeignKey(Vet, on_delete=models.CASCADE, to_field="id")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, to_field="id")
+    comment = models.CharField(max_length=256, null=True)
+    star =  models.IntegerField(null=True, blank=True)
+    date = models.DateField()
+
+    def __str__(self):
+        return str(self.vet) + str(self.user) + self.comment
