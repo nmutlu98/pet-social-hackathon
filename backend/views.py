@@ -102,6 +102,7 @@ class ClaimViewSet(viewsets.ModelViewSet):
     queryset = Claim.objects.all().order_by('name')
     serializer_class = ClaimSerializer
 
+
     @action(detail=False, methods=["get"])
     def get_claim_by_id(self, request):
         id = request.GET.get("id")
@@ -116,6 +117,14 @@ class ClaimViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(claims, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    def create(self, request):
+        #file_uploaded = request.FILES.get('file_uploaded')
+        #content_type = file_uploaded.content_type
+        pet_id = request.POST.get("pet_id")
+        statusStr = request.POST.get("status")
+        description = request.POST.get("description")
+        
+        return Response('{"succes" : "true"}', status=status.HTTP_200_OK)
 class CaseViewSet(viewsets.ModelViewSet):
     queryset = Case.objects.all().order_by('title')
     serializer_class = CaseSerializer
