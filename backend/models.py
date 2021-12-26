@@ -46,6 +46,24 @@ class Claim(models.Model):
     def __str__(self):
         return self.name
 
+class Walker(models.Model):
+    avatar = models.CharField(max_length=200)
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+    rate = models.IntegerField(0)
+    big_image = models.CharField(max_length=200)
+    background = models.CharField(max_length=200)
+    date = models.DateField('date')
+
+class Hotel(models.Model):
+    avatar = models.CharField(max_length=200)
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+    rate = models.IntegerField(0)
+    big_image = models.CharField(max_length=200)
+    background = models.CharField(max_length=200)
+    date = models.DateField('date')
+
 class Vaccination(models.Model):
     name = models.CharField(max_length=100)
     date = models.DateField('Date of Vaccination')
@@ -80,6 +98,6 @@ class AskidaSigorta(models.Model):
     isUsed = models.CharField(max_length = 100)
     usedForVet = models.ForeignKey(Vet, to_field = "id", on_delete=models.SET_NULL, default=Vet.objects.first().pk, blank=True, null = True)   
     case = models.ForeignKey(Case, to_field = "id", on_delete=models.SET_NULL, blank = True, null = True)
-    
+
     def __str__(self):
         return str(self.amount)

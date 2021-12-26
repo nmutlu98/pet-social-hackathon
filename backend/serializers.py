@@ -10,6 +10,8 @@ from .models import Company
 from .models import Claim
 from .models import Case
 from .models import AskidaSigorta
+from .models import Hotel
+from .models import Walker
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -53,6 +55,18 @@ class CaseSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Case
         fields = ('id', 'title')
+
+class WalkerSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Walker
+        fields = ('id', 'first_name', 'last_name', 'rate', 'big_image', 'background', 'date')
+
+
+class HotelSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Hotel
+        fields = ('id', 'first_name', 'last_name', 'rate', 'big_image', 'background', 'date')
+
 
 class AskidaSigortaSerializer(serializers.HyperlinkedModelSerializer):
     case_name = serializers.CharField(source='case.title')

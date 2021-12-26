@@ -12,12 +12,17 @@ from .serializers import ClaimSerializer
 from .serializers import PetSerializer
 from .serializers import CaseSerializer
 from .serializers import AskidaSigortaSerializer
+from .serializers import WalkerSerializer
+from .serializers import HotelSerializer
+
 from .models import User
 from .models import Vet
 from .models import Claim
 from .models import Pet
 from .models import Case
 from .models import AskidaSigorta
+from .models import Hotel
+from .models import Walker
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('email')
@@ -61,6 +66,8 @@ class PetViewSet(viewsets.ModelViewSet):
         content_type = file_uploaded.content_type
         response = "POST API and you have uploaded a {} file".format(content_type)
         return Response(response)
+
+       
     
     @action(detail=False, methods=["get"])
     def get_pets_of_user(self, request):
@@ -68,6 +75,28 @@ class PetViewSet(viewsets.ModelViewSet):
         claims = self.get_queryset().filter(owner = id)
         serializer = self.get_serializer(claims, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class WalkerViewSet(viewsets.ModelViewSet):
+        queryset = Walker.objects.all().order_by('first_name')
+        serializer_class = WalkerSerializer
+
+        @action(detail=False, methods=["get"])
+        def get_walker_by_id(self, request):
+            id = request.GET.get("id")
+            walkers = self.get_queryset().filter(id = id)
+            serializer = self.get_serializer(walkers, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+class HotelViewSet(viewsets.ModelViewSet):
+        queryset = Hotel.objects.all().order_by('first_name')
+        serializer_class = HotelSerializer
+
+        @action(detail=False, methods=["get"])
+        def get_hotel_by_id(self, request):
+            id = request.GET.get("id")
+            hotels = self.get_queryset().filter(id = id)
+            serializer = self.get_serializer(hotels, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ClaimViewSet(viewsets.ModelViewSet):
     queryset = Claim.objects.all().order_by('name')

@@ -8,6 +8,8 @@ from .models import Company
 from .models import Claim
 from .models import Case
 from .models import AskidaSigorta
+from .models import Hotel
+from .models import Walker
 
 # Register your models here.
 admin.site.register(User)
@@ -19,3 +21,5 @@ admin.site.register(Company)
 admin.site.register(Claim)
 admin.site.register(AskidaSigorta)
 admin.site.register(Case)
+admin.site.register(Hotel)
+admin.site.register(Walker)
