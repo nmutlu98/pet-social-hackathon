@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User
+from .models import Comments, User
 from .models import Vet
 from .models import Pet
 from .models import Vaccination
@@ -23,3 +23,4 @@ admin.site.register(AskidaSigorta)
 admin.site.register(Case)
 admin.site.register(Hotel)
 admin.site.register(Walker)
+admin.site.register(Comments)

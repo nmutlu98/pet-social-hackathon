@@ -12,6 +12,7 @@ router.register(r'cases', views.CaseViewSet)
 router.register(r'askidaSigorta', views.AskidaSigortaViewSet)
 router.register(r'hotels', views.HotelViewSet)
 router.register(r'walkers', views.WalkerViewSet)
+router.register(r'comments', views.CommentsViewSet)
 # path('path/to/my/view/', MySimpleView.as_view())
 
 # Wire up our API using automatic URL routing.
