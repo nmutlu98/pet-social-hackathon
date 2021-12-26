@@ -56,6 +56,12 @@ class PetViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(claims, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
+    def create(self, request):
+        file_uploaded = request.FILES.get('file_uploaded')
+        content_type = file_uploaded.content_type
+        response = "POST API and you have uploaded a {} file".format(content_type)
+        return Response(response)
+    
     @action(detail=False, methods=["get"])
     def get_pets_of_user(self, request):
         id = request.GET.get("id")
