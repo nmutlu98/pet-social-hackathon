@@ -51,6 +51,11 @@ class VetViewSet(viewsets.ModelViewSet):
         users = self.get_queryset().filter(email = username, password = password)
         serializer = self.get_serializer(users, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    @action(detail=False) 
+    def get_vets(self, request):
+        vets = self.get_queryset()
+        serializer = self.get_serializer(vets, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class PetViewSet(viewsets.ModelViewSet):
     queryset = Pet.objects.all().order_by('name')
