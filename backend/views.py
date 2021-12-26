@@ -10,10 +10,12 @@ from .serializers import UserSerializer
 from .serializers import VetSerializer
 from .serializers import ClaimSerializer
 from .serializers import PetSerializer
+from .serializers import CommentSerializer
 from .models import User
 from .models import Vet
 from .models import Claim
 from .models import Pet
+from .models import Comments
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('email')
@@ -39,6 +41,11 @@ class VetViewSet(viewsets.ModelViewSet):
         password = request.GET.get('password', '')
         users = self.get_queryset().filter(email = username, password = password)
         serializer = self.get_serializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    @action(detail=False)
+    def get_vets(self, request):
+        vets = self.get_queryset()
+        serializer = self.get_serializer(vets, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class PetViewSet(viewsets.ModelViewSet):
@@ -75,4 +82,14 @@ class ClaimViewSet(viewsets.ModelViewSet):
         id = request.GET.get("id")
         claims = self.get_queryset().filter(owner = id)
         serializer = self.get_serializer(claims, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class CommentsViewSet(viewsets.ModelViewSet):
+    queryset = Comments.objects.all().order_by('date')
+    serializer_class = CommentSerializer
+
+    @action(detail=False)
+    def get_comments(self, request):
+        comments = self.get_queryset()
+        serializer = self.get_serializer(comments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

@@ -1,7 +1,7 @@
 # serializers.py
 from rest_framework import serializers
 
-from .models import User
+from .models import Comments, User
 from .models import Vet
 from .models import Pet
 from .models import Vaccination
@@ -45,3 +45,8 @@ class ClaimSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Claim
         fields = ('id', 'pet_name', 'description', 'pet', 'status')
+
+class CommentSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Comments
+        fields = ('vet', 'user', 'comment', 'star', 'date')

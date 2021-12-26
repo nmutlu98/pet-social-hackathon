@@ -8,6 +8,7 @@ router.register(r'users', views.UserViewSet)
 router.register(r'vets', views.VetViewSet)
 router.register(r'claims', views.ClaimViewSet)
 router.register(r'pets', views.PetViewSet)
+router.register(r'comments', views.CommentsViewSet)
 # path('path/to/my/view/', MySimpleView.as_view())
 
 # Wire up our API using automatic URL routing.

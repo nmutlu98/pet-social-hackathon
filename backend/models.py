@@ -7,7 +7,7 @@ class User(models.Model):
     password = models.CharField(max_length = 12)
 
     def __str__(self):
-        return self.email
+        return self.email + " " + self.password
 
 class Pet(models.Model):
     owner = models.ForeignKey(User, to_field = "id", on_delete=models.CASCADE, default=User.objects.first().pk)
@@ -20,7 +20,7 @@ class Pet(models.Model):
     age = models.IntegerField(default = 0)
 
     def __str__(self):
-        return self.name + self.type
+        return "name: " + self.name + " type: " + self.type
 
 class Vet(models.Model):
     name = models.CharField(max_length=100)
@@ -50,7 +50,7 @@ class Vaccination(models.Model):
     date = models.DateField('Date of Vaccination')
 
     def __str__(self):
-        return self.name + str(self.date)
+        return self.name + " " + str(self.date)
 
 class VaccinationCard(models.Model):
     #patient = models.ForeignKey(Pet, to_field="id", on_delete=models.CASCADE, default=Pet.objects.first().pk)
@@ -65,3 +65,13 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+
+class Comments(models.Model):
+    vet = models.ForeignKey(Vet, on_delete=models.CASCADE, to_field="id")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, to_field="id")
+    comment = models.CharField(max_length=256, null=True)
+    star =  models.IntegerField(null=True, blank=True)
+    date = models.DateField()
+
+    def __str__(self):
+        return str(self.vet) + str(self.user) + self.comment
